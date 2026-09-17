@@ -19,13 +19,18 @@ center of the keyboard:
 - **Layer 0 (`_BASE`)** – standard QWERTY with the home row mods above.
   Left inner thumb key is `Enter` (tap) / layer 1 (hold). Right inner
   thumb key is `Space` (tap) / layer 2 (hold).
-- **Layer 1 (`_REGEX`)** – held with the **left** thumb. Brackets and
-  regex symbols (`( ) [ ] { } ^ $ * + ? | \ - _ ~`) live on the right
-  hand; numbers stay available on the left hand for repetition counts
-  like `{2,4}`.
-- **Layer 2 (`_SYMBOLS`)** – held with the **right** thumb. Extra
-  symbols (`! @ # $ % ^ & * ( ) ~ - = _ \`) live on the left hand;
-  F1–F12 are available across the top row.
+- **Layer 1 (`_REGEX`)** – held with the **left** thumb. Right-hand
+  layout borrowed from [BEAKL Pi's symbols-and-regex
+  layer](http://thedarnedestthing.com/beakl%20pi#symbols-and-regex):
+  each row pairs an anchor character with a bracket pair around a
+  middle symbol — `. [ ^ ]` / `? ( $ )` / `| { # }` — plus `Del` on
+  the right inner thumb and `\` at its usual key. Numbers stay
+  available on the left hand for repetition counts like `{2,4}`.
+- **Layer 2 (`_SYMBOLS`)** – held with the **right** thumb. Left hand
+  also mirrors BEAKL Pi's symbol rows — `. * &` / `< % > ~` / `+ @ / |`
+  — with `=` on the left inner thumb; right hand gets a navigation
+  cluster (Home/↑/End/PgUp, ←/↓/→/PgDn) instead. F1–F12 run across the
+  top row.
 - **Layer 3 (`_MEDIA`)** – activated automatically when **both** thumb
   layer keys are held together (via QMK's tri-layer helper). Volume
   and media transport controls sit on the right hand, plus `QK_BOOT`
