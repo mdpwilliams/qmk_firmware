@@ -19,10 +19,10 @@ center of the keyboard:
 - **Layer 0 (`_BASE`)** – standard QWERTY with the home row mods above.
   Top-left corner is `` ` `` (grave), outer-pinky home-row key is `Esc`
   (swapped from stock QMK's usual placement); Backspace lives on the
-  right inner thumb. The old Caps Word key is currently unassigned
-  (`KC_NO`) — a placeholder until it's replaced with something else.
-  Left inner thumb key is `Enter` (tap) / layer 1 (hold). Right inner
-  thumb key is `Space` (tap) / layer 2 (hold).
+  right inner thumb. The old Caps Word key is `Delete` for now — a
+  placeholder pending a better idea. Left inner thumb key is `Enter`
+  (tap) / layer 1 (hold). Right inner thumb key is `Space` (tap) /
+  layer 2 (hold).
 - **Layer 1 (`_REGEX`)** – held with the **left** thumb. Right-hand
   layout borrowed from [BEAKL Pi's symbols-and-regex
   layer](http://thedarnedestthing.com/beakl%20pi#symbols-and-regex):
