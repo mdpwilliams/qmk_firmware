@@ -40,6 +40,14 @@ center of the keyboard:
   and media transport controls sit on the right hand, plus `QK_BOOT`
   in the top-right corner for entering the bootloader to reflash.
 
+## Timing
+
+`TAPPING_TERM` (`config.h`) is set to **180ms**, down slightly from
+QMK's 200ms default — the max hold time before a tap-hold key (the
+home row mods, the two layer-tap thumb keys) commits to being a hold
+rather than a tap. Lower it further if holds still feel slow to
+register; raise it if taps are misfiring as holds.
+
 ## Flashing
 
 ```
