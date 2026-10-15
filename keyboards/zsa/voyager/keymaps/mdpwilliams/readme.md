@@ -36,9 +36,10 @@ center of the keyboard:
   navigation cluster (Home/↑/End/PgUp, ←/↓/→/PgDn) instead. F1–F12
   run across the top row.
 - **Layer 3 (`_MEDIA`)** – activated automatically when **both** thumb
-  layer keys are held together (via QMK's tri-layer helper). Volume
-  and media transport controls sit on the right hand, plus `QK_BOOT`
-  in the top-right corner for entering the bootloader to reflash.
+  layer keys are held together (via QMK's tri-layer helper). Media
+  controls run along the left home row — `Next`, `Vol−`, `Vol+`,
+  `Play/Pause` on A/S/D/F — plus `QK_BOOT` in the top-right corner for
+  entering the bootloader to reflash.
 
 ## Timing
 
