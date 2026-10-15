@@ -39,7 +39,31 @@ center of the keyboard:
   layer keys are held together (via QMK's tri-layer helper). Media
   controls run along the left home row — `Next`, `Vol−`, `Vol+`,
   `Play/Pause` on A/S/D/F — plus `QK_BOOT` in the top-right corner for
-  entering the bootloader to reflash.
+  entering the bootloader to reflash. The right half carries the RGB
+  controls: `Prev`/`Next` effect and `Speed−`/`Speed+` (Y row), `Hue−`/
+  `Hue+` and `Bright−`/`Bright+` (home row), and `Toggle` plus
+  `Sat−`/`Sat+` (bottom row).
+
+## Lighting
+
+The board boots into the **typing heatmap** effect (`config.h`; applied
+when the EEPROM is first initialised, after which the Media-layer RGB keys
+and their saved settings take over). Keys glow from blue through green and
+yellow to red the more you type them, and cool off over a few seconds.
+
+While a layer is held, every key that does something on it is lit in the
+layer's colour, drawn over the running effect (`keymap.c`,
+`rgb_matrix_indicators_advanced_user`):
+
+| Layer    | Colour |
+|----------|--------|
+| Regex    | teal   |
+| Symbols  | pink   |
+| Media    | amber  |
+
+The overlay follows the Media-layer brightness setting and is hidden when
+lighting is toggled off. The four status LEDs above the thumb clusters keep
+showing the active layer in binary.
 
 ## Timing
 

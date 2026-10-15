@@ -7,3 +7,8 @@
 // before it registers as a hold instead of a tap. QMK's default is 200ms;
 // trimmed down slightly here.
 #define TAPPING_TERM 180
+
+// Start on the typing heatmap rather than the rainbow sweep. This default is
+// only applied when the keyboard's EEPROM is first initialised; after that the
+// RGB keys on the Media layer change the mode, and the setting persists.
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_TYPING_HEATMAP

@@ -43,13 +43,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_MEDIA] = LAYOUT(
         _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, QK_BOOT,
-        _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
-        _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______,                      _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                      _______, RM_PREV, RM_NEXT, RM_SPDD, RM_SPDU, _______,
+        _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______,                      _______, RM_HUED, RM_HUEU, RM_VALD, RM_VALU, _______,
+        _______, _______, _______, _______, _______, _______,                      _______, RM_TOGG, RM_SATD, RM_SATU, _______, _______,
                                             _______, _______,             _______, _______
     ),
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _REGEX, _SYMBOLS, _MEDIA);
+}
+
+// Layer colours: while a layer is held, every key that does something on that
+// layer is lit in the layer's colour, drawn over whatever effect (the typing
+// heatmap by default) is running underneath.
+static bool layer_overlay_hsv(uint8_t layer, uint8_t *hue) {
+    switch (layer) {
+        case _REGEX:
+            *hue = 118; // teal
+            return true;
+        case _SYMBOLS:
+            *hue = 213; // pink
+            return true;
+        case _MEDIA:
+            *hue = 25; // amber
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    uint8_t hue;
+    uint8_t layer = get_highest_layer(layer_state);
+    // Nothing to draw on the base layer, or when the lighting has been toggled off.
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE || !layer_overlay_hsv(layer, &hue)) {
+        return false;
+    }
+
+    hsv_t hsv = {hue, 255, rgb_matrix_get_val()};
+    rgb_t rgb = hsv_to_rgb(hsv);
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            uint8_t led = g_led_config.matrix_co[row][col];
+            if (led == NO_LED || led < led_min || led >= led_max) {
+                continue;
+            }
+            uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){.row = row, .col = col});
+            if (keycode != KC_TRNS && keycode != KC_NO) {
+                rgb_matrix_set_color(led, rgb.r, rgb.g, rgb.b);
+            }
+        }
+    }
+    return false;
 }
