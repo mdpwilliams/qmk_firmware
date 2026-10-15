@@ -58,3 +58,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS,            KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  BAT_LVL,  NK_TOGG,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS)
 };
+
+#ifdef RGB_MATRIX_ENABLE
+// Saved EEPROM from stock firmware may hold a mode that no longer exists, and
+// RGB_MATRIX_DEFAULT_MODE only applies to a fresh EEPROM, so force the heatmap.
+void keyboard_post_init_user(void) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+}
+#endif

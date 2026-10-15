@@ -9,13 +9,21 @@ compile here.
 - Source: https://github.com/Keychron/qmk_firmware, branch `wireless_playground`,
   commit `666862c` ("Add Q2 Max JIS")
 - Changes: home row mods on both base layers (Mac and Windows), `TAPPING_TERM` 180,
-  VIA enabled (same as Keychron's `via` keymap)
+  VIA enabled (same as Keychron's `via` keymap), and lighting limited to the typing heatmap
 
 ## Home row mods
 | Hand  | Keys                                  |
 |-------|---------------------------------------|
 | Left  | A = Ctrl, S = Alt, D = Shift, F = GUI |
 | Right | J = GUI, K = Shift, L = Alt, ; = Ctrl |
+
+## Lighting
+Keychron's `info.json` enables 21 RGB effects. `config.h` undefines all but
+`TYPING_HEATMAP`, which is also the default mode, and `keyboard_post_init_user()`
+forces it on boot in case EEPROM from stock firmware holds a removed mode. The
+Fn-layer mode keys (`RGB_MOD`/`RGB_RMOD`) therefore have nothing else to cycle to;
+brightness, hue, saturation, speed and on/off still work. Checked by symbol: only
+`TYPING_HEATMAP` is in the compiled firmware (65 KB -> 54 KB).
 
 ## Building
 Clone Keychron's fork (read-only; never push there), copy this folder to
