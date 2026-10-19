@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DEL,  KC_Q,        KC_W,        KC_E,        KC_R,        KC_T,                                KC_Y,        KC_U,        KC_I,        KC_O,        KC_P,        KC_BSLS,
         KC_ESC,  CTL_T(KC_A), ALT_T(KC_S), SFT_T(KC_D), GUI_T(KC_F), KC_G,                                KC_H,        RGUI_T(KC_J),RSFT_T(KC_K),RALT_T(KC_L),RCTL_T(KC_SCLN),KC_QUOT,
         KC_LGUI, KC_Z,        KC_X,        KC_C,        KC_V,        KC_B,                                KC_N,        KC_M,        KC_COMMA,    KC_DOT,      KC_SLSH,     KC_RCTL,
-                                            LT(_REGEX, KC_ENT), KC_BSPC,              LT(_SYMBOLS, KC_SPC), KC_TAB
+                                            LT(_REGEX, KC_ENT), KC_BSPC,              KC_SPC, LT(_SYMBOLS, KC_TAB)
     ),
     // Regex/symbol placement borrowed from BEAKL Pi's symbols-and-regex layer
     // (thedarnedestthing.com/beakl pi): each row pairs an anchor character
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,                      KC_DOT,  KC_LBRC, KC_CIRC, KC_RBRC, KC_MINS, KC_BSLS,
         _______, _______, _______, _______, _______, _______,                      KC_QUES, KC_LPRN, KC_DLR,  KC_RPRN, KC_UNDS, _______,
         _______, _______, _______, _______, _______, _______,                      KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, _______, _______,
-                                            _______, _______,             _______, KC_DEL
+                                            _______, _______,             KC_DEL,  _______
     ),
     // Left hand mirrors BEAKL Pi's symbol rows (. * & / < % > ~ / + @ / |);
     // right hand gets its nav cluster (Home/Up/End/PgUp, Left/Down/Right/PgDn).
