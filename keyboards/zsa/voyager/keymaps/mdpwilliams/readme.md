@@ -18,17 +18,16 @@ center of the keyboard:
 
 - **Layer 0 (`_BASE`)** – standard QWERTY with the home row mods above.
   Top-left corner is `` ` `` (grave), outer-pinky home-row key is `Esc`
-  (swapped from stock QMK's usual placement); Backspace lives on the
-  right inner thumb. The old Caps Word key is `Delete` for now — a
-  placeholder pending a better idea. Left inner thumb key is `Enter`
-  (tap) / layer 1 (hold). Right inner thumb key is `Space` (tap) /
-  layer 2 (hold).
+  (swapped from stock QMK's usual placement). The old Caps Word key is
+  `Delete` for now — a placeholder pending a better idea. Thumbs, left
+  to right: `Enter` (tap) / layer 1 (hold), `Backspace`, then on the
+  right hand `Space` (tap) / layer 2 (hold), and `Tab` on the outer key.
 - **Layer 1 (`_REGEX`)** – held with the **left** thumb. Right-hand
   layout borrowed from [BEAKL Pi's symbols-and-regex
   layer](http://thedarnedestthing.com/beakl%20pi#symbols-and-regex):
   each row pairs an anchor character with a bracket pair around a
   middle symbol — `. [ ^ ] -` / `? ( $ ) _` / `| { # }` — plus `Del`
-  on the right inner thumb and `\` at its usual key. Numbers stay
+  on the right hand's outer thumb key (under `Tab`) and `\` at its usual key. Numbers stay
   available on the left hand for repetition counts like `{2,4}`.
 - **Layer 2 (`_SYMBOLS`)** – held with the **right** thumb. Left hand
   also mirrors BEAKL Pi's symbol rows — `. * & ! -` / `< % > ~ _` /
