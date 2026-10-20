@@ -15,6 +15,9 @@ driver and the `zsa/*` modules only exist in ZSA's fork.
   0x58, reported to the host as a touchpad), `zsa/automouse` and `zsa/defaults`.
 - `_MOUSE` layer (index 4): `KC_BTN1/2/3` on the home row, F/D/S on the left
   hand and J/K/L on the right. Everything else is transparent.
+- `rules.mk`: `POINTING_DEVICE_DRIVER = custom`. The automouse module forces pointing-device
+  support on, and the trackpad reports through the digitizer, so without this the build stops
+  with "Invalid POINTING_DEVICE_DRIVER".
 - `config.h`: `AUTOMOUSE_LAYER 4`, 650 ms timeout, motion threshold 10.
 - Lighting: `_MOUSE` keys glow blue while the layer is up.
 
@@ -23,4 +26,4 @@ driver and the `zsa/*` modules only exist in ZSA's fork.
   touchpad. Tune the pad's feel in your OS settings.
 - While the pad is touched, the home row mods are replaced by the mouse buttons
   until the timeout ends. Lower `AUTOMOUSE_TIMEOUT` if that interrupts typing.
-- Not compiled or flashed yet; the layer hue (blue) and timings are untested.
+- Compiles against ZSA's `firmware25` (commit `93b2b9e`). Not yet tested on hardware; the layer hue (blue) and timings are untested.
