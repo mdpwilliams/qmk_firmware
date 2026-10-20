@@ -33,13 +33,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,                      KC_PIPE, KC_LCBR, KC_HASH, KC_RCBR, _______, _______,
                                             _______, _______,             KC_DEL,  _______
     ),
-    // Left hand mirrors BEAKL Pi's symbol rows (. * & / < % > ~ / + @ / |);
+    // Left hand is BEAKL Pi's symbol rows (. * & / < % > ~ / + @ / |) moved one
+    // column right, so - and _ sit under the pinky;
     // right hand gets its nav cluster (Home/Up/End/PgUp, Left/Down/Right/PgDn).
     [_SYMBOLS] = LAYOUT(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                        KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-        _______, KC_DOT,  KC_ASTR, KC_AMPR, KC_EXLM, KC_MINS,                      _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______,
-        _______, KC_LABK, KC_PERC, KC_RABK, KC_TILD, KC_UNDS,                      _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
-        _______, KC_PLUS, KC_AT,   KC_SLSH, KC_PIPE, _______,                      _______, _______, _______, _______, _______, _______,
+        _______, KC_MINS, KC_DOT,  KC_ASTR, KC_AMPR, KC_EXLM,                      _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______,
+        _______, KC_UNDS, KC_LABK, KC_PERC, KC_RABK, KC_TILD,                      _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
+        _______, _______, KC_PLUS, KC_AT,   KC_SLSH, KC_PIPE,                      _______, _______, _______, _______, _______, _______,
                                             _______, KC_EQL,              _______, _______
     ),
     [_MEDIA] = LAYOUT(
