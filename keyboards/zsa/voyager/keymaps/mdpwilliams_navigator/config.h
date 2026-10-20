@@ -19,3 +19,7 @@
 #define AUTOMOUSE_LAYER 4
 #define AUTOMOUSE_TIMEOUT 650
 #define AUTOMOUSE_THRESHOLD 10
+
+// Two-finger scroll (needs navigator_trackpad_scroll.patch, see readme): reverse
+// the vertical direction to suit macOS.
+#define TRACKPAD_SCROLL_INVERT 1
