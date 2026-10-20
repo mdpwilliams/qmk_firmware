@@ -1,0 +1,104 @@
+diff --git a/navigator_trackpad/navigator_trackpad_ptp.c b/navigator_trackpad/navigator_trackpad_ptp.c
+index eb4dc77ac0..c901c6ae1e 100644
+--- a/navigator_trackpad/navigator_trackpad_ptp.c
++++ b/navigator_trackpad/navigator_trackpad_ptp.c
+@@ -89,6 +89,23 @@ extern uint8_t digitizer_touchpad_get_input_mode(void);
+ #    define TRACKPAD_TAP_SETTLE_TIME_MS 30  // Ignore movement during initial contact (ms)
+ #endif
+ 
++// Two-finger scroll for mouse mode (hosts that don't switch the pad to PTP,
++// e.g. macOS). Two fingers on the pad scroll instead of moving the cursor; the
++// motion of their midpoint is sent as wheel ticks on the regular mouse report.
++// TRACKPAD_SCROLL_UNITS_PER_NOTCH: sensor units of travel per wheel notch (the
++//   pad spans ~1740 units over ~40 mm, so 60 is ~1.4 mm; raise to slow down).
++// TRACKPAD_SCROLL_INVERT: set to 1 to reverse the vertical direction.
++// TRACKPAD_SCROLL_HORIZONTAL: set to FALSE to disable sideways scrolling.
++#ifndef TRACKPAD_SCROLL_UNITS_PER_NOTCH
++#    define TRACKPAD_SCROLL_UNITS_PER_NOTCH 60.0f
++#endif
++#ifndef TRACKPAD_SCROLL_INVERT
++#    define TRACKPAD_SCROLL_INVERT 0
++#endif
++#ifndef TRACKPAD_SCROLL_HORIZONTAL
++#    define TRACKPAD_SCROLL_HORIZONTAL TRUE
++#endif
++
+ #ifndef TRACKPAD_MAX_DELTA
+ #    define TRACKPAD_MAX_DELTA 250  // Max allowed delta per frame to prevent jumps
+ #endif
+@@ -168,6 +185,15 @@ static struct {
+     uint8_t  prev_buttons;
+ } mouse_state = {0};
+ 
++// Two-finger scroll state (mouse mode only)
++static struct {
++    bool    active;
++    int16_t last_x;
++    int16_t last_y;
++    float   v_accum;
++    float   h_accum;
++} scroll_state = {0};
++
+ // Track input mode to detect changes
+ static uint8_t prev_input_mode = TRACKPAD_INPUT_MODE_PTP;
+ 
+@@ -196,6 +222,7 @@ static void reset_mouse_state(void) {
+     mouse_state.is_drag = false;
+     mouse_state.pending_release = false;
+     mouse_state.prev_buttons = 0;
++    scroll_state.active = false;
+ }
+ 
+ // Clamp value to int8_t range
+@@ -241,8 +268,50 @@ static void process_fallback_mouse(cgen6_report_t *sensor_report, bool finger_do
+         mouse_state.is_drag = false;
+     }
+ 
++    // Two fingers down: scroll by the midpoint's motion instead of moving the cursor.
++    bool two_fingers = sensor_report->fingers[0].tip && sensor_report->fingers[1].tip;
++    if (two_fingers) {
++        int16_t cx = ((int16_t)sensor_report->fingers[0].x + (int16_t)sensor_report->fingers[1].x) / 2;
++        int16_t cy = ((int16_t)sensor_report->fingers[0].y + (int16_t)sensor_report->fingers[1].y) / 2;
++        if (!scroll_state.active) {
++            scroll_state.active  = true;
++            scroll_state.v_accum = 0.0f;
++            scroll_state.h_accum = 0.0f;
++            // A scroll is never a tap, even if both fingers lift quickly.
++            mouse_state.is_drag = true;
++        } else {
++            int16_t sx = cx - scroll_state.last_x;
++            int16_t sy = cy - scroll_state.last_y;
++            NT_ROTATE_DELTA(sx, sy);
++#    if TRACKPAD_SCROLL_INVERT
++            sy = -sy;
++#    endif
++            scroll_state.v_accum += (float)sy / TRACKPAD_SCROLL_UNITS_PER_NOTCH;
++#    if TRACKPAD_SCROLL_HORIZONTAL == TRUE
++            scroll_state.h_accum += (float)sx / TRACKPAD_SCROLL_UNITS_PER_NOTCH;
++#    endif
++            int8_t v = clamp_to_int8((int32_t)scroll_state.v_accum);
++            int8_t h = clamp_to_int8((int32_t)scroll_state.h_accum);
++            scroll_state.v_accum -= v;
++            scroll_state.h_accum -= h;
++            if (v != 0 || h != 0) {
++                report_mouse_t wheel = {.v = v, .h = h};
++                host_mouse_send(&wheel);
++            }
++        }
++        scroll_state.last_x = cx;
++        scroll_state.last_y = cy;
++        // Keep the single-finger tracker current so lifting one finger doesn't jump the cursor.
++        mouse_state.last_x = sensor_report->fingers[0].x;
++        mouse_state.last_y = sensor_report->fingers[0].y;
++    } else if (scroll_state.active) {
++        scroll_state.active = false;
++        mouse_state.last_x  = sensor_report->fingers[0].x;
++        mouse_state.last_y  = sensor_report->fingers[0].y;
++    }
++
+     // Handle finger movement
+-    if (finger_down && mouse_state.tracking) {
++    if (finger_down && mouse_state.tracking && !two_fingers && !scroll_state.active) {
+         uint32_t duration = timer_elapsed32(mouse_state.touch_start_time);
+ 
+         // Record settled position once settle time elapses (for tap detection)
