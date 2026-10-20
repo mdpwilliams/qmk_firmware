@@ -1,0 +1,7 @@
+{
+    "modules": [
+        "zsa/navigator_trackpad",
+        "zsa/automouse",
+        "zsa/defaults"
+    ]
+}
