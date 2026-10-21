@@ -10,7 +10,7 @@
 
 // Start on the typing heatmap rather than the rainbow sweep. This default is
 // only applied when the keyboard's EEPROM is first initialised; after that the
-// RGB keys on the Media layer change the mode, and the setting persists.
+// Media layer only toggles the RGB on and off, so the saved mode persists.
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_TYPING_HEATMAP
 
 // Navigator trackpad: the automouse module raises this layer (_MOUSE in

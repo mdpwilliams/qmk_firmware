@@ -39,16 +39,15 @@ center of the keyboard:
   layer keys are held together (via QMK's tri-layer helper). Media
   controls run along the left home row — `Next`, `Vol−`, `Vol+`,
   `Play/Pause` on A/S/D/F — plus `QK_BOOT` in the top-right corner for
-  entering the bootloader to reflash. The right half carries the RGB
-  controls: `Prev`/`Next` effect and `Speed−`/`Speed+` (Y row), `Hue−`/
-  `Hue+` and `Bright−`/`Bright+` (home row), and `Toggle` plus
-  `Sat−`/`Sat+` (bottom row).
+  entering the bootloader to reflash. The only lighting key is `Toggle`
+  (`RM_TOGG`, right half, bottom row, second key), which turns the RGB on and off.
 
 ## Lighting
 
-The board boots into the **typing heatmap** effect (`config.h`; applied
-when the EEPROM is first initialised, after which the Media-layer RGB keys
-and their saved settings take over). Keys glow from blue through green and
+The board runs the **typing heatmap** effect (`config.h`; applied when the
+EEPROM is first initialised, then saved). The Media layer can only toggle the
+lighting on and off, which keeps the saved effect, so it comes back as the
+heatmap. Keys glow from blue through green and
 yellow to red the more you type them, and cool off over a few seconds.
 
 While a layer is held, every key that does something on it is lit in the
@@ -81,3 +80,13 @@ qmk flash -kb zsa/voyager -km mdpwilliams
 
 or use the Wally flashing tool from ZSA with the built
 `zsa_voyager_mdpwilliams.bin` file.
+
+### Getting back to the heatmap
+The effect, speed, hue and brightness cannot be changed from the keyboard any
+more, so the heatmap stays put. If the board is ever on a different effect
+(for example after flashing an older build that had the cycle keys), either:
+- flash a build that still has `RM_NEXT`/`RM_PREV`, cycle to the typing
+  heatmap, then flash this one again; or
+- temporarily put `EE_CLR` on a key, build, flash, and press it. That clears the
+  saved settings, and `RGB_MATRIX_DEFAULT_MODE` (the heatmap) is applied on the
+  next boot. There is no such key in the keymap today.
