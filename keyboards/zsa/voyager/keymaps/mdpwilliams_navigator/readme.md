@@ -20,7 +20,7 @@ driver and the `zsa/*` modules only exist in ZSA's fork.
 - `rules.mk`: `POINTING_DEVICE_DRIVER = custom`. The automouse module forces pointing-device
   support on, and the trackpad reports through the digitizer, so without this the build stops
   with "Invalid POINTING_DEVICE_DRIVER".
-- `config.h`: `AUTOMOUSE_LAYER 4`, 650 ms timeout, motion threshold 10.
+- `config.h`: `AUTOMOUSE_LAYER 4`, 300 ms timeout, motion threshold 10.
 - Lighting: `_MOUSE` keys glow blue while the layer is up.
 
 ## Two-finger scroll (macOS)
@@ -39,5 +39,5 @@ the normal mouse report. Taps are suppressed during a scroll.
 - Tracking, taps and scroll gestures are handled by the host as a precision
   touchpad. Tune the pad's feel in your OS settings.
 - While the pad is touched, the home row mods are replaced by the mouse buttons
-  until the timeout ends. Lower `AUTOMOUSE_TIMEOUT` if that interrupts typing.
+  until the timeout ends (300 ms after the last pad activity; ZSA's default is 650). Lower `AUTOMOUSE_TIMEOUT` if that interrupts typing, raise it if the layer drops too soon.
 - Compiles against ZSA's `firmware25` (commit `93b2b9e`). Not yet tested on hardware; the layer hue (blue) and timings are untested.

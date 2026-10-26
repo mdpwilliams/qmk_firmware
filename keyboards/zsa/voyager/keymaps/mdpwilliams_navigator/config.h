@@ -17,7 +17,7 @@
 // keymap.c, index 4) while the pad is touched and drops it after the timeout.
 // Keep the number in step with the layer enum.
 #define AUTOMOUSE_LAYER 4
-#define AUTOMOUSE_TIMEOUT 650
+#define AUTOMOUSE_TIMEOUT 300
 #define AUTOMOUSE_THRESHOLD 10
 
 // Two-finger scroll (needs navigator_trackpad_scroll.patch, see readme): reverse
