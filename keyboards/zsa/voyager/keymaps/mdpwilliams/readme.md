@@ -29,12 +29,15 @@ center of the keyboard:
   each row pairs an anchor character with a bracket pair around a
   middle symbol — `. [ ^ ] -` / `? ( $ ) _` / `| { # }` — plus `Del`
   on the right hand's inner thumb key (under `Space`) and `\` at its usual key. Numbers stay
-  available on the left hand for repetition counts like `{2,4}`.
+  available on the number row for repetition counts like `{2,4}`. The
+  left hand carries the navigation cluster: Home/↑/End/PgUp on `W E R T`
+  and ←/↓/→/PgDn on `S D F G`.
 - **Layer 2 (`_SYMBOLS`)** – held with the **right** thumb. Left hand
   also mirrors BEAKL Pi's symbol rows — `. * & ! -` / `< % > ~ _` /
-  `+ @ / |` — with `=` on the left inner thumb; right hand gets a
-  navigation cluster (Home/↑/End/PgUp, ←/↓/→/PgDn) instead. F1–F12
-  run across the top row.
+  `+ @ / |` — with `=` on the left inner thumb; right hand is a
+  number pad of keypad keys: `7 8 9 / −` on the Y row, `4 5 6 * +` on the
+  home row, and `0 1 2 3 . Enter` on the bottom row (`0` on `N`).
+  Navigation lives on the Regex layer. F1–F12 run across the top row.
 - **Layer 3 (`_MEDIA`)** – activated automatically when **both** thumb
   layer keys are held together (via QMK's tri-layer helper). Media
   controls run along the left home row — `Next`, `Vol−`, `Vol+`,
